@@ -15,7 +15,7 @@ public class Guacamaya {
     }
 
     /**
-     * Descripcion: Este metodo se encarga de iniciar las variables globales
+     * Descripcion: Este método se encarga de iniciar las variables globales
      * pre: El Scanner reader debe estar declarado
      * pos: l Scanner reader queda inicializado
     */
@@ -26,7 +26,7 @@ public class Guacamaya {
     }
 
     /**
-     * Descripcion: Este metodo se encarga de desplegar el menu al usuario y mostrar los mensajes de resultado para cada funcionalidad
+     * Descripcion: Este método se encarga de desplegar el menu al usuario y mostrar los mensajes de resultado para cada funcionalidad
      * pre: El Scanner reader debe estar inicializado
      * pre: El arreglo precios debe estar inicializado
     */
@@ -58,15 +58,15 @@ public class Guacamaya {
                     System.out.println("\nLa cantidad total de unidades vendidas en el dia fue de: "+calcularTotalUnidadesVendidas());
                     break;
                 case 3:
-                    System.out.println("\nEl precio promedio de las referencias de producto vendidas en el dia fue de: "+calcularPrecioPromedio());
+                    System.out.println("\nEl precio promedio de las referencias de producto vendidas en el dia fue de: " + (int) calcularPrecioPromedio());
                     break;
                 case 4:
-                    System.out.println("\nLas ventas totales (dinero recaudado) durante el dia fueron: "+calcularVentasTotales());
+                    System.out.println("\nLas ventas totales (dinero recaudado) durante el dia fueron: "+ (int) calcularVentasTotales());
                     break;
                 case 5:
                     System.out.println("\nDigite el limite minimo de ventas a analizar");
                     double limite = reader.nextDouble();
-                    System.out.println("\nDe las "+precios.length+" referencias vendidas en el dia, "+consultarReferenciasSobreLimite(limite)+" superaron el limite minimo de ventas de "+limite);
+                    System.out.println("\nDe las "+precios.length+" referencias vendidas en el dia, "+consultarReferenciasSobreLimite(limite)+" superaron el limite minimo de ventas de "+(int)limite);
                     break;
                 case 6:
                     System.out.println("\nGracias por usar nuestros servicios!");
@@ -83,8 +83,8 @@ public class Guacamaya {
     }
 
     /**
-     * Descripcion: Este metodo se encarga de preguntar al usuario el numero de referencias de producto diferentes 
-     * vendidas en el dia e inicializa con ese valor los arreglos encargados de almacenar precios y cantidades
+     * Descripcion: Este método se encarga de preguntar al usuario el número de referencias de producto diferentes 
+     * vendidas en el día e inicializa con ese valor los arreglos encargados de almacenar precios y cantidades
      * pre: El Scanner reader debe estar inicializado
      * pre: Los arreglos precios y unidades deben estar declarados
      * pos: Los arreglos precios y unidades quedan inicializados
@@ -99,32 +99,88 @@ public class Guacamaya {
 
     }
 
+    /**
+     * Descripcion: Este método solicita al usuario los precio y cantidades vendidas de cada referencia 
+     * pre: El Scanner reader debe estar inicializado
+     * pre: Los arreglos precios y unidades deben estar declarados
+     * pos: Los arreglos precios y unidades quedan inicializados
+     */
     public static void solicitarDatos(){
+        for ( int i = 0; i < precios.length; i++ ) {
+          System.out.println("\nDigite el precio del producto  " + (i + 1)); 
+          precios[i] = reader.nextDouble();
+
+          System.out.println("Digite la cantidad del producto  " + (i + 1));
+          unidades[i] = reader.nextInt();
+        }
 
      
     }
 
+    /**
+     * Descripcion: Este método calcula el total de las unidades vendidas durante el día 
+     * pre: Los arreglos precios y unidasdes deben estar inicializados 
+     * @return el total de las unidades vendidas
+     */
     public static int calcularTotalUnidadesVendidas(){
+        int totalUnidades = 0;
+        for(int unidad : unidades){
+            totalUnidades += unidad;
 
-        return 0;
+        }
+
+        return totalUnidades;
 
     }
 
+    /**
+     * Descripcion: Este método calcula el promedio de las referencias vendidas durante el día 
+     * pre: Los arreglos precios y unidades deben estar inicializados
+     * @return El precio promedio de las referencias
+     */
     public static double calcularPrecioPromedio(){
+        double sumaPrecios = 0;
+        for (double precio : precios) {
+            sumaPrecios += precio;
+        }
 
-        return 0;
+        return sumaPrecios / precios.length;
 
     }
 
+    /**
+     * Descripcion: Este método calcula el total de ventas (dinero recaudado) durante el día
+     * pre: Los arreglos precios y unidades deben estar inicializados
+     * @return El total del dinero recaudado
+     */
     public static double calcularVentasTotales(){
 
-        return 0;
+        double totalVentas = 0;
+        for (int i = 0; i < precios.length; i++) {
+            totalVentas += precios[i] * unidades[i];
+        }
+
+        return totalVentas;
 
     }
 
+    /**
+     * Descripcion: Este método consultar el número de referencias que superan el limite minimo de ventas 
+     * pre: Los arreglos precios y unidades deben estar inicializados
+     * @param limite El limite minimo de ventas a consultar
+     * @return Las referencias que superaron el limite 
+     */
     public static int consultarReferenciasSobreLimite(double limite){
 
-        return 0;
+        int referenciasSobreLimite = 0;
+        for (int i = 0; i < precios.length; i++) {
+            double totalVentaProducto = precios[i] * unidades[i];
+            if (totalVentaProducto > limite) {
+                referenciasSobreLimite++;
+            }
+
+        }
+        return referenciasSobreLimite;
 
     }
 
